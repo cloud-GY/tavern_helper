@@ -1,0 +1,17 @@
+<head>
+  <script>
+    // Mock tavern environment for browser preview
+    if (typeof window.getChatMessages !== 'function') {
+      window.getChatMessages = () => [];
+      window.getVariables = () => ({});
+      window.getScriptId = () => 'mock-script';
+      window.replaceVariables = () => {};
+      window.triggerSlash = cmd => console.log('Slash command:', cmd);
+      window.tavern_events = { CHAT_CHANGED: 'chat_changed', MESSAGE_UPDATED: 'message_updated' };
+      window.eventOn = () => ({ destroy: () => {} });
+    }
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+</body>

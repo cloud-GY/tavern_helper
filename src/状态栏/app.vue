@@ -445,7 +445,7 @@ const chatdata = `
 系统警戒值: 65
 进度: 数据链路同步中 (42%)
 
-可能的发展:
+叙事走向预览:
   - 安保破门而入强制中断连接
   - 银狐切断通讯带着定金跑路
   - 物理网闸锁定导致你被困机房
@@ -526,7 +526,7 @@ function parseStatus(text: string) {
 
   // Parse Characters
   const charBlocks =
-    content.match(/-\s*名字:[\s\S]*?(?=\n\s*-\s*名字:|\n\s*[^\-\s]+值:|\n\s*进度:|\n\s*可能的发展:|\n\s*行动选项:|$)/g) ||
+    content.match(/-\s*名字:[\s\S]*?(?=\n\s*-\s*名字:|\n\s*[^\-\s]+值:|\n\s*进度:|\n\s*(?:可能的发展|叙事走向预览):|\n\s*行动选项:|$)/g) ||
     [];
   state.characters = charBlocks.map(block => {
     const nameMatch = block.match(/名字:\s*(.*)/);
@@ -548,7 +548,7 @@ function parseStatus(text: string) {
 
     // 匹配 DATA 块 (支持多行列表)，增加对后续“键: 值”格式的排除
     const dataMatch = block.match(
-      /DATA:\s*([\s\S]*?)(?=\n\s*[^:：\-\s]+[:：]|\n\s*-\s*名字:|\n\s*[^\-\s]+值:|\n\s*进度:|\n\s*可能的发展:|\n\s*行动选项:|$)/,
+      /DATA:\s*([\s\S]*?)(?=\n\s*[^:：\-\s]+[:：]|\n\s*-\s*名字:|\n\s*[^\-\s]+值:|\n\s*进度:|\n\s*(?:可能的发展|叙事走向预览):|\n\s*行动选项:|$)/,
     );
     if (dataMatch) {
       // 处理列表对齐：修剪每行空格并过滤空行
@@ -592,7 +592,7 @@ function parseStatus(text: string) {
   if (progressStatusMatch) state.system.progressStatus = progressStatusMatch[1].trim();
 
   // Parse Story
-  const outcomesMatch = content.match(/可能的发展:([\s\S]*?)(?=行动选项|$)/);
+  const outcomesMatch = content.match(/(?:可能的发展|叙事走向预览):([\s\S]*?)(?=行动选项|$)/);
   if (outcomesMatch) {
     state.story.potentialOutcomes = outcomesMatch[1]
       .split('\n')

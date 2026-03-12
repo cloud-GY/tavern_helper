@@ -102,3 +102,29 @@ git config --global merge.ours.driver true
 ## 许可证
 
 [Aladdin](LICENSE)
+
+# 酒馆填入内容
+
+正则: .*?<Status_block>([\s\S]*?)<\/Status_block>
+
+替换1:
+```
+<body>
+<script>
+  $('body').load('https://testingcf.jsdelivr.net/gh/lcloud-GY/tavern_helper/dist/状态栏/index.html')
+</script>
+</body>
+```
+
+替换2:
+```
+<body>
+  <script>
+    $('body').load('http://localhost:5500/dist/状态栏/index.html')
+  </script>
+</body>
+```
+镜像:
+testingcf.jsdelivr.net
+fastly.jsdelivr.net
+gcore.jsdelivr.net
